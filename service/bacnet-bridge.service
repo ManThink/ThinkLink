@@ -1,0 +1,16 @@
+[Unit]
+Description=bacnet-bridge
+ConditionFileIsExecutable=/usr/local/mt/janus/bacnet-bridge/main
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/usr/local/mt/janus/bacnet-bridge
+ExecStart=/usr/local/mt/janus/bacnet-bridge/main
+TimeoutSec=10
+RemainAfterExit=no
+GuessMainPID=no
+Restart=always
+RestartSec=10
+[Install]
+WantedBy=multi-user.target

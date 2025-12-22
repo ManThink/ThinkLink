@@ -1,0 +1,16 @@
+[Unit]
+Description=tkl-bacnet-bridge
+ConditionFileIsExecutable=/usr/local/mt/tkl/tkl-bacnet-bridge/main
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/usr/local/mt/tkl/tkl-bacnet-bridge
+ExecStart=/usr/local/mt/tkl/tkl-bacnet-bridge/main
+TimeoutSec=10
+RemainAfterExit=no
+GuessMainPID=no
+Restart=always
+RestartSec=10
+[Install]
+WantedBy=multi-user.target

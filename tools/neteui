@@ -1,0 +1,61 @@
+#!/bin/bash
+tkConfFile="/usr/local/mt/lws/lws-thinkOne/config/thinkOne_conf.json"
+tklConfFile="/usr/local/mt/tkl/tkl-main/config.json"
+
+
+
+
+
+if [ $# -ne 1 ]; then
+  echo "错误：必须且只能传入一个参数。"
+  echo "用法：neteui read 或者 neteui 25082201"
+  exit 1
+fi
+if [ "$1" = "read" ];then
+  if [ -f "${tklConfFile}"  ]; then
+      tklNetEui=$(gwm -txt read -fileType jsonFile -f ${tklConfFile} -dataName thinkone:neteui)
+      echo "tklNetEui is "$tklNetEui
+  fi
+  if [ -f "${tkConfFile}" ]; then
+      tkNetEui=$(gwm -txt read -fileType jsonFile -f ${tkConfFile} -dataName netEui)
+      echo "thinkOne netEUI is "$tkNetEui
+  fi
+  exit 0
+fi
+
+mkdir -p /usr/local/mt/tkl-main-temp
+# scp root@192.168.1.141:/home/manthink/tke/install/mtFiles/tke-last.tar.gz /usr/local/mt/tkl-main-temp/
+
+scp -r root@192.168.1.141:/home/manthink/tke/install/mtFiles/tkl root@192.168.1.141:/home/manthink/tke/install/mtFiles/www.gz /usr/local/mt/tkl-main-temp/
+tar -xzf /usr/local/mt/tkl-main-temp/www.gz -C /usr/local/mt/tkl-main-temp/
+rm -rf /usr/local/mt/tkl/tkl-main
+rm -rf /usr/local/mt/tkl/tkl-bacnet-bridge
+
+cp -r /usr/local/mt/tkl-main-temp/tkl/tkl-main /usr/local/mt/tkl/tkl-main
+rm -rf /usr/local/mt/www/tkl-web
+cp -r /usr/local/mt/tkl-main-temp/www/tkl-web /usr/local/mt/www/tkl-web
+cp -r /usr/local/mt/tkl-main-temp/tkl/tkl-bacnet-bridge /usr/local/mt/tkl/
+chmod 755 /usr/local/mt/tkl/tkl-bacnet-bridge/main
+rm -rf /usr/local/mt/tkl-main-temp
+
+gwm -txt write -fileType jsonFile -f ${tkConfFile} -dataType string -dataName netEui -dataVal $1
+gwm -txt write -fileType jsonFile -f ${tklConfFile} -dataType string -dataName thinkone:neteui -dataVal $1
+sudo -u postgres psql -d thinklink -c "truncate table public.spg_reg_infos"
+systemctl restart lws-thinkOne
+systemctl restart lws-nsbrg
+systemctl restart tkl-main
+
+# systemctl restart lws-dms
+# systemctl restart janus-nms.service
+# systemctl restart janus_nms_V4.service
+# systemctl restart janus-platform.service
+# systemctl restart bacnet-bridge.service
+
+if [ -f "${tkNmsFile}"  ]; then
+    nmsNetEui=$(node ${file_tool} --read-yml  ${tkNmsFile}  janus.broker.netEui)
+    echo "nmsNetEui is "$nmsNetEui
+fi
+if [ -f "${tkConfFile}" ]; then
+    tkNetEui=$(gwm -txt read -fileType jsonFile -f ${tkConfFile} -dataName netEui)
+    echo "thinkOne netEUI is "$tkNetEui
+fi

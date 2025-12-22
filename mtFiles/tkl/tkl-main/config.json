@@ -1,0 +1,45 @@
+{
+  "bacnetConfigPath": "/usr/local/mt/tkl/tkl-bacnet-bridge/config.yml",
+  "expiresIn": "24h",
+  "enable":true,
+  "mode": "tke",
+  "port": 10100,
+  "privateKey": "MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDr8zN2mQLhKte/p8YiXivZVb65ArNVf9Qtw08GjLdBpU4exX2EstxHcF59qZ5WWrkeb1WbX1c4MihpkLMyhBqwX+d+2vifBW1zWjM9AntLvDYlKAEEvw759uTpWShZsJswyYy/K4+Uj4R/zA+GZ5ycwe/fFXQ5lTLkQWRqV8EVmOJzlDZ/jytB7ER+vchtfU14TmF9YFzDHIQzWGTugTNxX4h/UEpJwVRCdMDtquUchq/JqAe+u9yMcXYtdDzvRuCjHNVUPa9/lhmpEuzaSNpyrq5dk62cULb6fdsarMmw7sbvMPy8+qS5VpoW0xPpk3hEYUQGxYiJSL94shRfFgBjAgMBAAECggEAVsboK3sU4wklthgXN7aYu+LcNSD4Ib7Uo0wMeWUxVNReCdUqV66Mcz2xktfaIvpU0QuzWWRUKJfR4xlTvoV1Z16uPip8e8e8PEt1Qr/x5qW+6CVxUnSOJoKWJ/ghbfMU8Hl/6SM1ODccTQAYyZ67q69r8Ajs6OylfetK6g2CNtWBzz9mFQReeujbv5+rq0KK1OzfnNGjG3OQFss4i5f6X+wA46bt/nZt6EHkCRCgJscXuRiwhZvHgG+ZnZk7w0EWexDPmcLhIP1UW4f0dd0zBlK1u0lYQAfEmEiSx3nnSnqcddmm/o9Pjd3nFM/X1OB1sgZ7/mRdqgXjjVmQRAydsQKBgQD5MQ1sm/BMGSFlWuM3xs3tpV7gm/Lynyx9GBzyn96UeaSXhO9NkagzS7Ee2a1o0sjdmbPw/uPpb34mr0IJJoxK4JQVU/13ZOYrPdukWdKADTFKFDoj/v9UCR1dH2aEU43Uwb7Zjuy5Vtp7A2tQUS/sdf36BRU/3toVByOlgeF7SQKBgQDyZYgJ1ZMhUKvJkEI7/b5sZPUVnGNAQrBsR28Sbr9yac6qq40UPZx/PXBkf1zBG7/lv9U6YUUs/C7tFiSXxAvp2GvPo8dSDY4A/x8x1p0Rcf5fpShYejcM2QrPqDtKje3AGB4VdIhbrfbLo7xtseXJUYDTfLrkyqPhxuKLpr3SSwKBgQDeY6CPZTu3LlZXlh1iEdKGXCeoXIUdcmDJ41MyVOrXpxf1AXZvy6ZI4SxZU/smqbcJzbqBQXk1Q4NaEt7kO7rIuFRwFF0IyMuBm9sBeggar6tlaVfZ+CD2ZowGJ5feUJMrZR1mG9+4KIMjdZG4RDx403SuRQsJzWDjk1OEybzpwQKBgQDWJJCcb4x+ADDj74g0S6VxSXej0fd1C/Wkky8zT5fe0k78RHZsjUm2t2aVwlcFWyibJnCQFOLyLRCf79IAKfiEbOhCFmS+vq7Xfovmkb1NbjHV+ai9EauUtCJy9iL7aIvECwp41eypYfUITuzm1CU3R8PSEv1hpwxFKFl4GqTUJQKBgHDbS45gL0hXxYGjLx/Uq686O7Q+rMBmMs2e//NShSzUHuHIRcXIx1n0b4ylDb6z+5A6BSg+eGalIGQdQelbk7nCPLK6pAF0pJ0XC9ftMkKxk7b5SSThTNrcMCiai9g+Tdg3plnh+R9McevFmhJ53E2KJJQSlJaza2QhPgcTxMmy",
+  "publicKey": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA6/MzdpkC4SrXv6fGIl4r2VW+uQKzVX/ULcNPBoy3QaVOHsV9hLLcR3BefameVlq5Hm9Vm19XODIoaZCzMoQasF/nftr4nwVtc1ozPQJ7S7w2JSgBBL8O+fbk6VkoWbCbMMmMvyuPlI+Ef8wPhmecnMHv3xV0OZUy5EFkalfBFZjic5Q2f48rQexEfr3IbX1NeE5hfWBcwxyEM1hk7oEzcV+If1BKScFUQnTA7arlHIavyagHvrvcjHF2LXQ870bgoxzVVD2vf5YZqRLs2kjacq6uXZOtnFC2+n3bGqzJsO7G7zD8vPqkuVaaFtMT6ZN4RGFEBsWIiUi/eLIUXxYAYwIDAQAB",
+  "thinklinkPg": {
+    "application_name": "thinklink",
+    "connectionTimeoutMillis": 30000,
+    "database": "thinklink",
+    "host": "127.0.0.1",
+    "idleTimeoutMillis": 30000,
+    "max": 10,
+    "min": 2,
+    "password": "pUbLbJNq0ugS/M0bepY5TA==",
+    "port": 5432,
+    "user": "postgres"
+  },
+  "thinkone": {
+    "asBroker": {
+      "options": {
+        "password": "Z4fZr1eRW+ZcczXtbU9ebQ==",
+        "username": "thinklink"
+      },
+      "url": "mqtt://127.0.0.1:1883"
+    },
+    "neteui": "25080101",
+    "nmsBroker": {
+      "options": {
+        "password": "Z4fZr1eRW+ZcczXtbU9ebQ==",
+        "username": "thinklink"
+      },
+      "url": "mqtt://127.0.0.1:1883"
+    },
+    "nsBroker": {
+      "options": {
+        "password": "Z4fZr1eRW+ZcczXtbU9ebQ==",
+        "username": "thinklink"
+      },
+      "url": "mqtt://127.0.0.1:1883"
+    }
+  }
+}

@@ -1,0 +1,15 @@
+[Unit]
+Description=[tkl-main] tkl-main
+#ConditionFileIsExecutable=/usr/local/mt/tkl/tkl-main/
+After=board-scan.service
+
+[Service]
+Type=simple
+WorkingDirectory=/usr/local/mt/tkl/tkl-main/
+ExecStart=/usr/bin/node ./tkl-main.js
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+

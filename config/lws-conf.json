@@ -1,0 +1,31 @@
+{
+    "netEui": "25080101",
+    "redispswd": "TKredis_0801",
+    "ns": {
+    "broker": "localhost:1883",
+    "username": "thinklink",
+    "password": "Z4fZr1eRW+ZcczXtbU9ebQ=="
+    },
+    "as": {
+    "broker": "localhost:1883",
+    "username": "thinklink",
+    "password": "Z4fZr1eRW+ZcczXtbU9ebQ=="
+    },
+    "dms": {
+    "broker": "localhost:1883",
+    "username": "thinklink",
+    "password": "Z4fZr1eRW+ZcczXtbU9ebQ=="
+    },
+    "postgre": {
+    "server": "localhost:5432",
+    "dbName": "thinklink_old",
+    "user": "postgres",
+    "pswd": "pUbLbJNq0ugS/M0bepY5TA=="
+    },
+    "postgrebk": {
+    "server": "localhost:5432",
+    "dbName": "thinklink",
+    "user": "postgres",
+    "pswd": "pUbLbJNq0ugS/M0bepY5TA=="
+    }
+}

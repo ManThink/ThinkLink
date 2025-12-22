@@ -1,0 +1,15 @@
+tenant: mtfac
+broker:
+    host: 127.0.0.1
+    port: 1883
+    username: thinklink
+    password: tkl_1705
+    transfer_topic: '/v32/{tenant}/tkl/up/telemetry/{eui}'
+    cmd_down_topic: '/v32/{tenant}/tkl/dn/rpc/{eui}'
+pgsql:
+    dsn: 'postgres://postgres:TKpg_0801@127.0.0.1:5432/thinklink?search_path=system_base'
+    min_size: 5
+    max_size: 20
+    max_queries: 50000
+    max_inactive_connection_lifetime: 300
+    command_timeout: 180
