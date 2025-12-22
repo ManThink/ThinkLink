@@ -1,36 +1,138 @@
 # ThinkLink
 
 #### Description
-ThinkLink 安装包
-
-#### Software Architecture
-Software architecture description
-
+ThinkLink Introduction 
+ThinkLink  (hereinafter referred to as TKL) is a comprehensive and highly integrated IoT system designed for building efficient, secure and scalable LoRaWAN IoT solutions. TKL has built-in complete LoRaWAN network server (NS) function, which can centralize the management of LoRaWAN devices and gateways to ensure the stable operation of the network and the safe access of devices. 
+At the same time, TKL supports accessing data from third-party systems through the standard MQTT protocol, realizing the integration and unified management of multi-source data, and greatly enhancing the openness and compatibility of the platform. 
+Deployment flexibility 
+TKL provides high deployment flexibility. You can choose any of the following deployment methods based on project requirements and environment characteristics: 
+  ○ Cloud server (Cloud) : It is applicable to scenarios that need to get started quickly and do not need local resources. 
+  ○ Edge Server (TKE) : Meet applications that require data localization and low-latency communication, and support private deployment. 
+  ○ Gateway Internal （TKG） : The NS function is directly embedded in the gateway device to achieve lightweight and low-cost local network management. 
+This "cloud-edge-end" integrated deployment capability enables TKL to flexibly adapt to various requirements from small-scale testing to large-scale enterprise applications. 
+Core Features Overview 
+TKL provides a series of powerful function modules, covering the entire life cycle of IoT applications from device access to business analysis: 
+● Network data debugging: It can listen to LoRaWAN gateway side data (NS data) and NS output data (AS data) , helping users to quickly debug LoRaWAN sensors, locate communication problems, and accelerate project development and deployment. 
+● Thing Model : parses raw data from LoRaWAN or MQTT into structured application-layer data, and supports Visual Display through tables, charts, or custom dashboards. 
+● RPC  : Support remote configuration equipment parameters and issue control instructions to realize remote management and maintenance of terminal equipment. 
+● Asset Model : Aggregate data from multiple devices through the thing model to form a higher-dimensional "asset" view for comprehensive data analysis and business insight. 
+● Sub-device management : supports the management of sub-device data read by DTU or acquisition units through interfaces such as RS-485 and M-Bus as independent devices, realizing hierarchical device organization. 
+● EB cloud compiler : compile and download EB(Embedded Business) code in the cloud, simplifying the process of developing and updating Embedded Business logic. 
+● Alarm model : You can set alarm rules based on multiple data types and implement alarm notifications through multiple channels (such as email and SMS) to ensure timely response to key events. 
+● Linkage model : Realize the automatic linkage between devices, trigger corresponding actions according to preset conditions, and improve the intelligent level of the system. 
+● Scheduled Task : Tasks can be set to execute periodically, calling RPC through periodic tasks to achieve automated, cyclical operations.
+● Protocol docking: through flexible configuration, it can seamlessly connect with mainstream protocols such as BACnet, Home Assistant, ThingsBoard, Modbus TCP, etc. 
+[Note]] the interface between BACnet and Modbus TCP protocol is only available in TKE/TKG mode. 
 #### Installation
+ThinkLink Installation and Configuration Guide
+1. Obtaining the ThinkLink Installation Package
+You can obtain the installation package by contacting ManThink Technology (info@manthink.cn) or by downloading it directly from GitHub.
+If you download a compressed package, please decompress it into any target folder.
+2. Environment Requirements and Installation
+2.1 Operating System Requirements
+The system must be Ubuntu 24.0 or a higher version, supporting both arm64 and x64 architectures.
+2.2 Required Dependencies
+The environment installation mainly involves the following tools:
+● PostgreSQL 16
+● TimeScaleDB 2.24
+● Node.js v22.21.0
+● EMQX 5.8
+● npm
+● Redis
+● Nginx
+2.3 One-Click Environment Installation
+Navigate to the installation package directory and execute the install-env-tkl.sh script to complete the environment installation with a single command. This script is idempotent; already installed environments will not be reinstalled, so it can be safely executed repeatedly.
+cd tkl-pkg-2.00.010
+sudo ./install-env-tkl.sh
+3. Port Configuration
+To ensure external access, the following TCP ports need to be opened:
+● 1883, 8083, 18083, 5432, 80, 443
+If GWMP protocol support is required, please also open UDP port 1770.
+4. EMQX Configuration
+EMQX is configured via a Web interface, accessible at http://[IP]:18083.
+The default EMQX login credentials are admin/public. It is strongly recommended to change the password immediately after installation to ensure security.
+Important Note: In EMQX version 5.10.0, the allow_anonymous parameter has been removed. The logic has been changed to: Anonymous access is allowed by default when no authentication rules are configured; once any authentication rule is configured, anonymous access is automatically disabled.
+4.1 Configuring Superusers
+1. Log in to the Dashboard (http://<IP>:18083) → "Access Control" → "Client Authentication" → "Create".
+2. Select the authentication method (e.g., Password-Based → Built-in Database) → "Next".
+3. Keep the default settings and add at least one user (Username/Client ID + Password) → "Create".
+4. In "Client Authentication" → "Built-in Database" → "User Management", add a Super Administrator:
+  ○ Username (u): thinklink
+  ○ Password (p): tkl_1705
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+4.2 Enabling PostgreSQL Account Authentication
+1. Log in to the Dashboard (http://<IP>:18083) → "Access Control" → "Client Authentication" → "Create".
+2. Select the authentication method (e.g., Password-Based → PostgreSQL) → "Next".
+3. Modify the server connection information and SQL query statement. Use the corresponding PostgreSQL database password for the password field.
+4. Click "Update" after filling in the information.
+SELECT password_hash, salt FROM system_base.mqtt_user where username = ${username} LIMIT 1
+
+4.3 ACL Authorization Configuration
+
+1. Log in to the Dashboard (http://<IP>:18083) → "Access Control" → "Client Authorization" → "Settings".
+2. Edit the default rule:
+  ○ Go to "Client Authorization" → "Data Source" → "File" → Click the "Settings" icon.
+  ○ In the ACL File, delete the line {allow, all}.
+  ○ The change takes effect automatically upon saving (no EMQX restart required).
+3. Configure Authorization Policy:
+  ○ In "Client Authorization" → "Authorization Settings", set "Execute if no match" to deny, and set "Execute if denied" to disconnect.
+
+4.4 Enabling PostgreSQL ACL Permission Management
+1. Log in to the Dashboard (http://<IP>:18083) → "Access Control" → "Client Authorization" → "Settings".
+2. Select the authentication method (e.g., Password-Based → PostgreSQL) → "Next".
+3. Modify the server connection information and SQL query statement. Use the corresponding PostgreSQL database password for the password field.
+4. Click "Update" after filling in the information.
+SELECT action, permission, topic FROM system_base.mqtt_acl where username = ${username} or username='PUBLIC'
+5. Installing the Application
+Navigate to the installation package directory and execute the install-app-tkl.sh script to complete the application installation with a single command.
+sudo ./install-app-tkl.sh
+After the installation is complete, the system will print the following default information:
+6. Default Information and Password Modification
+6.1 Default Login Credentials
+● MQTT Broker Superuser: user=thinklink password=tkl_1705
+● ThinkLink Platform Login: http://[IP], Username admin, Password TKedge_0801
+6.2 Method for Modifying Account Passwords
+ThinkLink relies on EMQX, PostgreSQL, and Redis. Default accounts and passwords are used after installation. If you need to modify the passwords for these three components, please complete the modification first, and then update the ThinkLink configuration using the following steps:
+1. Configure a file named conf.json. Passwords are shown in ciphertext in the example, but actual users can input them in plaintext when modifying.
+Note: It is not recommended to modify parameters other than passwords, unless you are fully aware of the potential impact of the changes.
+{
+    "redispswd": "Z4fZr1eRW+ZcczXtbU9ebQ==", 
+    "ns": {
+    "broker": "localhost:1883",
+    "username": "thinklink",
+    "password": "Z4fZr1eRW+ZcczXtbU9ebQ=="
+    },
+    "as": {
+    "broker": "localhost:1883",
+    "username": "thinklink",
+    "password": "Z4fZr1eRW+ZcczXtbU9ebQ=="
+    },
+    "dms": {
+    "broker": "localhost:1883",
+    "username": "thinklink",
+    "password": "Z4fZr1eRW+ZcczXtbU9ebQ=="
+    },
+    "postgre": {
+    "server": "localhost:5432",
+    "dbName": "thinklink_old",
+    "user": "postgres",
+    "pswd": "pUbLbJNq0ugS/M0bepY5TA=="
+    },
+    "postgrebk": {
+    "server": "localhost:5432",
+    "dbName": "thinklink",
+    "user": "postgres",
+    "pswd": "pUbLbJNq0ugS/M0bepY5TA=="
+    }
+}
+  ○ Redis Password: Modify the redispswd field.
+  ○ Broker Passwords: It is recommended to modify the passwords for all Brokers (ns, as, dms) uniformly, keeping the thinklink username unchanged.
+  ○ PostgreSQL Passwords: The user field for postgre and postgrebk should remain postgres, and the passwords for both configurations must be identical.
+2. Execute the following command to complete the password modification:
+tkl-chpswd -f conf.json
 
 #### Instructions
-
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
+https://mensikeji.yuque.com/staff-zesscp/gqdw7f/md29a2ixuug2aik2?singleDoc# 《[EN] ThinkLink User Guide》
 #### Contribution
-
-1.  Fork the repository
-2.  Create Feat_xxx branch
-3.  Commit your code
-4.  Create Pull Request
-
-
-#### Gitee Feature
-
-1.  You can use Readme\_XXX.md to support different languages, such as Readme\_en.md, Readme\_zh.md
-2.  Gitee blog [blog.gitee.com](https://blog.gitee.com)
-3.  Explore open source project [https://gitee.com/explore](https://gitee.com/explore)
-4.  The most valuable open source project [GVP](https://gitee.com/gvp)
-5.  The manual of Gitee [https://gitee.com/help](https://gitee.com/help)
-6.  The most popular members  [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+ManThink Technology , please contact info@manthink.cn
+More info , https://www.manthink.cn
