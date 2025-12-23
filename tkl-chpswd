@@ -16,7 +16,6 @@ elif [ "$1" != "-f"  ]; then
   exit 0
 fi
 confJson=$2
-if [ ]
 systemctl stop lws-thinkOne
 systemctl stop lws-nsbrg
 if [ "$arch" = "aarch64" ]; then
