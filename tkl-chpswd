@@ -40,9 +40,9 @@ else
 fi
 echo "start to modify the password .................."
 paraConf() {
-    confPara=$(./gwm -txt read -fileType jsonFile -f ${confJson} -dataName ${2})
+    confPara=$(gwm -txt read -fileType jsonFile -f ${confJson} -dataName ${2})
     echo "rewrite "${2}" with "${confPara}
-    ./gwm -txt write -fileType jsonFile -f ${1} -dataType string -dataName ${2} -dataVal ${confPara}
+    gwm -txt write -fileType jsonFile -f ${1} -dataType string -dataName ${2} -dataVal ${confPara}
 }
 tkConfFile="/usr/local/mt/lws/lws-thinkOne/config/thinkOne_conf.json"
 nsConfFile="/usr/local/mt/lws/lws-nsbrg/config/nsbrg_conf.json"
@@ -68,45 +68,45 @@ paraConf ${tkConfFile}  postgrebk:user
 paraConf ${tkConfFile}  postgrebk:pswd
 paraConf ${tkConfFile}  postgrebk:dbName
 
-redispswd=$(./gwm -txt read -fileType jsonFile -f ${confJson} -dataName redispswd)
-./gwm -txt write -fileType jsonFile -f ${tkConfFile} -dataType string -dataName redisDev:pswd -dataVal ${redispswd}
-./gwm -txt write -fileType jsonFile -f ${tkConfFile} -dataType string -dataName redisPay:pswd -dataVal ${redispswd}
-./gwm -txt write -fileType jsonFile -f ${tkConfFile} -dataType string -dataName redisGw:pswd -dataVal ${redispswd}
-./gwm -txt write -fileType jsonFile -f ${tkConfFile} -dataType string -dataName redisDnData:pswd -dataVal ${redispswd}
-./gwm -txt write -fileType jsonFile -f ${tkConfFile} -dataType string -dataName redisTemp:pswd -dataVal ${redispswd}
+redispswd=$(gwm -txt read -fileType jsonFile -f ${confJson} -dataName redispswd)
+gwm -txt write -fileType jsonFile -f ${tkConfFile} -dataType string -dataName redisDev:pswd -dataVal ${redispswd}
+gwm -txt write -fileType jsonFile -f ${tkConfFile} -dataType string -dataName redisPay:pswd -dataVal ${redispswd}
+gwm -txt write -fileType jsonFile -f ${tkConfFile} -dataType string -dataName redisGw:pswd -dataVal ${redispswd}
+gwm -txt write -fileType jsonFile -f ${tkConfFile} -dataType string -dataName redisDnData:pswd -dataVal ${redispswd}
+gwm -txt write -fileType jsonFile -f ${tkConfFile} -dataType string -dataName redisTemp:pswd -dataVal ${redispswd}
 
 
 
-./gwm -txt write -fileType jsonFile -f ${nsConfFile} -dataType string -dataName redisGw:pswd -dataVal ${redispswd}
+gwm -txt write -fileType jsonFile -f ${nsConfFile} -dataType string -dataName redisGw:pswd -dataVal ${redispswd}
 
-netEui=$(./gwm -txt read -fileType jsonFile -f ${tkConfFile} -dataName netEui)
-nsbroker=$(./gwm -txt read -fileType jsonFile -f ${tkConfFile} -dataName ns:broker)
-nsuname=$(./gwm -txt read -fileType jsonFile -f ${tkConfFile} -dataName ns:username)
-nspswd=$(./gwm -txt read -fileType jsonFile -f ${tkConfFile} -dataName ns:password)
-asuname=$(./gwm -txt read -fileType jsonFile -f ${tkConfFile} -dataName as:username)
-aspswd=$(./gwm -txt read -fileType jsonFile -f ${tkConfFile} -dataName as:password)
-pguname=$(./gwm -txt read -fileType jsonFile -f ${tkConfFile} -dataName postgrebk:user)
-pgpswd=$(./gwm -txt read -fileType jsonFile -f ${tkConfFile} -dataName postgrebk:pswd)
+netEui=$(gwm -txt read -fileType jsonFile -f ${tkConfFile} -dataName netEui)
+nsbroker=$(gwm -txt read -fileType jsonFile -f ${tkConfFile} -dataName ns:broker)
+nsuname=$(gwm -txt read -fileType jsonFile -f ${tkConfFile} -dataName ns:username)
+nspswd=$(gwm -txt read -fileType jsonFile -f ${tkConfFile} -dataName ns:password)
+asuname=$(gwm -txt read -fileType jsonFile -f ${tkConfFile} -dataName as:username)
+aspswd=$(gwm -txt read -fileType jsonFile -f ${tkConfFile} -dataName as:password)
+pguname=$(gwm -txt read -fileType jsonFile -f ${tkConfFile} -dataName postgrebk:user)
+pgpswd=$(gwm -txt read -fileType jsonFile -f ${tkConfFile} -dataName postgrebk:pswd)
 echo "netEui is :"${netEui}
-./gwm -txt write -fileType jsonFile -f ${nsConfFile} -dataType string -dataName nsBroker -dataVal ${nsbroker}
-./gwm -txt write -fileType jsonFile -f ${nsConfFile} -dataType string -dataName nsUserName -dataVal  ${nsuname}
-./gwm -txt write -fileType jsonFile -f ${nsConfFile} -dataType string -dataName nsPassword -dataVal  ${nspswd}
-./gwm -txt write -fileType jsonFile -f ${nsConfFile} -dataType string -dataName nmsBroker -dataVal ${nsbroker}
-./gwm -txt write -fileType jsonFile -f ${nsConfFile} -dataType string -dataName nmsUserName -dataVal  ${nsuname}
-./gwm -txt write -fileType jsonFile -f ${nsConfFile} -dataType string -dataName nmsPassword -dataVal  ${nspswd}
-./gwm -txt write -fileType jsonFile -f ${nsConfFile} -dataType string -dataName brgBroker -dataVal ${nsbroker}
-./gwm -txt write -fileType jsonFile -f ${nsConfFile} -dataType string -dataName brgUserName -dataVal  ${nsuname}
-./gwm -txt write -fileType jsonFile -f ${nsConfFile} -dataType string -dataName brgPassword -dataVal  ${nspswd}
+gwm -txt write -fileType jsonFile -f ${nsConfFile} -dataType string -dataName nsBroker -dataVal ${nsbroker}
+gwm -txt write -fileType jsonFile -f ${nsConfFile} -dataType string -dataName nsUserName -dataVal  ${nsuname}
+gwm -txt write -fileType jsonFile -f ${nsConfFile} -dataType string -dataName nsPassword -dataVal  ${nspswd}
+gwm -txt write -fileType jsonFile -f ${nsConfFile} -dataType string -dataName nmsBroker -dataVal ${nsbroker}
+gwm -txt write -fileType jsonFile -f ${nsConfFile} -dataType string -dataName nmsUserName -dataVal  ${nsuname}
+gwm -txt write -fileType jsonFile -f ${nsConfFile} -dataType string -dataName nmsPassword -dataVal  ${nspswd}
+gwm -txt write -fileType jsonFile -f ${nsConfFile} -dataType string -dataName brgBroker -dataVal ${nsbroker}
+gwm -txt write -fileType jsonFile -f ${nsConfFile} -dataType string -dataName brgUserName -dataVal  ${nsuname}
+gwm -txt write -fileType jsonFile -f ${nsConfFile} -dataType string -dataName brgPassword -dataVal  ${nspswd}
 
-./gwm -txt write -fileType jsonFile -f ${tklConfFile} -dataType string -dataName thinkone:nmsBroker:options:username -dataVal  ${asuname}
-./gwm -txt write -fileType jsonFile -f ${tklConfFile} -dataType string -dataName thinkone:nsBroker:options:username -dataVal  ${asuname}
-./gwm -txt write -fileType jsonFile -f ${tklConfFile} -dataType string -dataName thinkone:asBroker:options:username -dataVal  ${asuname}
-./gwm -txt write -fileType jsonFile -f ${tklConfFile} -dataType string -dataName thinkone:nmsBroker:options:password -dataVal  ${aspswd}
-./gwm -txt write -fileType jsonFile -f ${tklConfFile} -dataType string -dataName thinkone:nsBroker:options:password -dataVal  ${aspswd}
-./gwm -txt write -fileType jsonFile -f ${tklConfFile} -dataType string -dataName thinkone:asBroker:options:password -dataVal  ${aspswd}
+gwm -txt write -fileType jsonFile -f ${tklConfFile} -dataType string -dataName thinkone:nmsBroker:options:username -dataVal  ${asuname}
+gwm -txt write -fileType jsonFile -f ${tklConfFile} -dataType string -dataName thinkone:nsBroker:options:username -dataVal  ${asuname}
+gwm -txt write -fileType jsonFile -f ${tklConfFile} -dataType string -dataName thinkone:asBroker:options:username -dataVal  ${asuname}
+gwm -txt write -fileType jsonFile -f ${tklConfFile} -dataType string -dataName thinkone:nmsBroker:options:password -dataVal  ${aspswd}
+gwm -txt write -fileType jsonFile -f ${tklConfFile} -dataType string -dataName thinkone:nsBroker:options:password -dataVal  ${aspswd}
+gwm -txt write -fileType jsonFile -f ${tklConfFile} -dataType string -dataName thinkone:asBroker:options:password -dataVal  ${aspswd}
 
-./gwm -txt write -fileType jsonFile -f ${tklConfFile} -dataType string -dataName thinklinkPg:user -dataVal  ${pguname}
-./gwm -txt write -fileType jsonFile -f ${tklConfFile} -dataType string -dataName thinklinkPg:password -dataVal  ${pgpswd}
+gwm -txt write -fileType jsonFile -f ${tklConfFile} -dataType string -dataName thinklinkPg:user -dataVal  ${pguname}
+gwm -txt write -fileType jsonFile -f ${tklConfFile} -dataType string -dataName thinklinkPg:password -dataVal  ${pgpswd}
 
 
 gwm -txt replace -f ${bacNetConfFile} -fileType stringFile -symbolStart username: -symbolEnd password: -dataVal ${asuname}$'\n'
@@ -128,3 +128,4 @@ systemctl enable tkl-main
 systemctl daemon-reload
 systemctl restart tkl-main
 echo "change complete !!!!"
+
